@@ -23,9 +23,6 @@ int main(void)
 {
 	uart_init();
 	clear(DDRC, 0);		//set C0 as input
-	set(DDRB, 2);		//set PB2, 3, 4 to output
-	set(DDRB, 3);
-	set(DDRB, 4);
 	
 	set(ADMUX, REFS0);	//setting reference voltage for ADC to Vcc
 	clear(ADMUX, REFS1);
@@ -52,61 +49,9 @@ int main(void)
 	
     while (1) 
     {
-		//printf("ADC = %i \n", ADC);
-		int number = 7 - getGroupNumber(ADC, 920, 500, 7, 0);
-		if (number > 7){
-			number = 7;
-		}
-		printf("group number = %i \n", number);
-		if (number == 0){
-			clear(PORTB, 2);
-			clear(PORTB, 3);
-			clear(PORTB, 4);
-		}
-		else if (number == 1){
-			set(PORTB, 2);
-			clear(PORTB, 3);
-			clear(PORTB, 4);
-		}
-		else if (number == 2){
-			clear(PORTB, 2);
-			set(PORTB, 3);
-			clear(PORTB, 4);
-		}
-		else if (number == 3){
-			set(PORTB, 2);
-			set(PORTB, 3);
-			clear(PORTB, 4);
-		}
-		else if (number == 4){
-			clear(PORTB, 2);
-			clear(PORTB, 3);
-			set(PORTB, 4);
-		}
-		else if (number == 5){
-			set(PORTB, 2);
-			clear(PORTB, 3);
-			set(PORTB, 4);
-		}
-		else if (number == 6){
-			clear(PORTB, 2);
-			set(PORTB, 3);
-			set(PORTB, 4);
-		}
-		else if (number == 7){
-			set(PORTB, 2);
-			set(PORTB, 3);
-			set(PORTB, 4);
-		}
-		
-		
+		printf("ADC = %i \n", ADC);
+				
     }
 }
 
-int getGroupNumber(int inputADCval, int ADCmax, int ADCmin, int groupMAX, int groupMIN)
-{
-	int band=0;
-	band = (ADCmax-ADCmin+1)/(groupMAX-groupMIN+1);
-	return ((groupMAX-groupMIN)-((inputADCval-ADCmin)/band));
-}
 
